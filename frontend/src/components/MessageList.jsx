@@ -1,7 +1,16 @@
 
-function MessageList(){
-    const messages = [ { role: "user", content: "Hello Agent!" },
-  { role: "assistant", content: "Hello! How can I help you?" }]
+import { useEffect, useRef } from "react"
+
+function MessageList(props){
+    const messages = props.messages;
+    const bottomRef = useRef(null)
+
+    useEffect(() => {
+        bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
+    }, [messages])
+
+    if (messages.length === 0) return null
+
    return(
        <>
        <div className="flex w-full min-w-0 flex-col gap-3">
@@ -13,15 +22,22 @@ function MessageList(){
                 : "justify-start"
             }`}
             >
-                <div className={`box-border min-w-0 max-w-full break-words [overflow-wrap:anywhere] rounded-2xl border p-4 leading-relaxed shadow-sm ${
+                <div className={`chat-message box-border min-w-0 max-w-full break-words [overflow-wrap:anywhere] rounded-2xl border p-4 leading-relaxed shadow-sm ${
                         message.role === "user"
                     ? "rounded-br-md border-indigo-200 bg-indigo-100 text-indigo-950"
                     : "rounded-bl-md border-slate-200 bg-white text-slate-800"
                 }`}>
-                {message.content}
+                {message.pending ? (
+                    <span className="response-typing" aria-label="Agent is responding">
+                        <i />
+                        <i />
+                        <i />
+                    </span>
+                ) : message.content}
                 </div>
                 </div>
          ))}
+         <div ref={bottomRef} />
        </div>
        </>
     )}

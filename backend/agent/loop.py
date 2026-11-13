@@ -4,10 +4,8 @@ from tools import TOOLS
 from tools import TOOL_DEFINITIONS 
 import json
 
-def run_agent():
-    while True:
+def run_agent(user_input):
 
-        user_input = input("HOW CAN I HELP YOU?: ")
         messages = [
         {
             "role": "system",
@@ -34,6 +32,6 @@ def run_agent():
                 })
 
             response = ask_agent(messages, tools = TOOL_DEFINITIONS)
-        print(response.choices[0].message.content)
+        return response.choices[0].message.content
 
 
