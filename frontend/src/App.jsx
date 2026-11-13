@@ -56,7 +56,6 @@ function App (){
     }
 
     return (
-
         <>
         <div className="app">
             <Sidebar />
@@ -101,8 +100,8 @@ function App (){
                         sendMessage()
                     }
                 }}
+                
                 onChange={(event) => {
-
                     setMessage(event.target.value)
                     const textarea = event.currentTarget;
                     textarea.style.height = 'auto';
