@@ -13,10 +13,10 @@ function MessageList(){
                 : "justify-start"
             }`}
             >
-                <div className={`box-border min-w-0 max-w-full break-words [overflow-wrap:anywhere] rounded-xl p-4 ${
+                <div className={`box-border min-w-0 max-w-full break-words [overflow-wrap:anywhere] rounded-2xl border p-4 leading-relaxed shadow-sm ${
                         message.role === "user"
-                    ? "bg-indigo-100 text-indigo-950"
-                    : "bg-white text-slate-800"
+                    ? "rounded-br-md border-indigo-200 bg-indigo-100 text-indigo-950"
+                    : "rounded-bl-md border-slate-200 bg-white text-slate-800"
                 }`}>
                 {message.content}
                 </div>

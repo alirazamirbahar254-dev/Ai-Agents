@@ -9,7 +9,7 @@ function App (){
         <>
         <div className="app">
             <Sidebar />
-        <main className="min-w-0 flex flex-1 flex-col w-full items-center justify-between">
+        <main className="min-w-0 flex flex-1 flex-col w-full h-screen items-center justify-between">
         <h2 className="text-10xl font-bold text-indigo-600">
             Hello! How can I help you today?</h2>
 
@@ -18,6 +18,7 @@ function App (){
         <div className="box-border flex min-w-0 flex-1 flex-col w-[80%] p-4">
             <MessageList/>
             <inputchat />
+
         </div>
             
         </div>

@@ -145,4 +145,5 @@ transition: all 0.2s ease;
 
 #plus-icon:hover{
   background: blue;
+  color: #fff;
 }
