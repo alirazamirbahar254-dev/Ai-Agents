@@ -60,7 +60,6 @@ body.dark {
 ========================================================= */
 * {
   margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
@@ -96,7 +95,7 @@ background: var(--surface-2);
   background: var(--surface);
   border: 1px solid var(--border);
   min-height:56px;
-  width:60%;
+  width:calc(80% - 2rem);
   border-radius: 28px;
   padding:8px 10px;
   gap:8px;
@@ -128,7 +127,7 @@ button{
     flex: 0 0 40px;
     align-self: flex-end;
     border-radius: 50%;
-    background-color:var( --accent);
+    background-color:blue;
     color:var(--surface);
     border:none;
     display: flex;
@@ -145,5 +144,5 @@ transition: all 0.2s ease;
 }
 
 #plus-icon:hover{
-  background: var(--accent);
+  background: blue;
 }
