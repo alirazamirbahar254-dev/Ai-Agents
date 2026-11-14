@@ -130,7 +130,6 @@ background: var(--surface-2);
   height: 10px;
   border-radius: 50%;
   background: #312e81;
-  animation: welcome-look 1.8s ease-in-out infinite alternate;
 }
 
 .welcome-pupil::after {
@@ -165,18 +164,7 @@ background: var(--surface-2);
   opacity: 0.85;
 }
 
-@keyframes welcome-look {
-  from {
-    transform: translateX(-3px);
-  }
-
-  to {
-    transform: translateX(3px);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .welcome-pupil,
   .chat-message,
   .response-typing i {
     animation: none;
@@ -205,6 +193,27 @@ background: var(--surface-2);
 
 .chat-message {
   animation: message-enter 300ms ease-out both;
+}
+
+.chat-message--editing {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text-primary);
+  box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow-md);
+}
+
+.chat-message--editing:focus-within {
+  box-shadow: 0 0 0 3px var(--accent-soft-strong), var(--shadow-md);
+}
+
+.chat-message-editor {
+  color: var(--text-primary);
+  caret-color: var(--accent);
+  cursor: text;
+}
+
+.chat-message-editor::selection {
+  background: var(--accent-soft-strong);
 }
 
 .response-typing {
@@ -274,7 +283,7 @@ textarea {
   color: var(--text-primary);
 }
 
-button{
+.chat > button{
     width: 40px;
     height: 40px;
     flex: 0 0 40px;
