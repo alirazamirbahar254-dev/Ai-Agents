@@ -82,6 +82,17 @@ padding: 20px 20px 20px calc(var(--sidebar-width) + 20px);
 width:100%;
 font-family: 'Poppins', sans-serif;
 background: var(--surface-2);
+transition: padding-left 250ms ease;
+}
+
+.app.sidebar-collapsed {
+  padding-left: 20px;
+}
+
+/* Shares a consistent width between the welcome heading and chat input. */
+.welcome-content-width {
+  width: 100%;
+  max-width: 53rem;
 }
 
 .welcome-mascot {
@@ -165,6 +176,10 @@ background: var(--surface-2);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .app {
+    transition: none;
+  }
+
   .chat-message,
   .response-typing i {
     animation: none;
@@ -185,7 +200,6 @@ background: var(--surface-2);
   background: var(--surface);
   border: 1px solid var(--border);
   min-height:56px;
-  width:calc(80% - 2rem);
   border-radius: 28px;
   padding:8px 10px;
   gap:8px;

@@ -13,7 +13,12 @@ function renderMessageContent(message){
                 code({children, className}){
                     const language = /language-(\w+)/.exec(className || "")?.[1] || "text";
                     return(
-                        <SyntaxHighlighter language={language} style={oneDark}>
+                        <SyntaxHighlighter
+                            language={language}
+                            style={oneDark}
+                            className={className}
+                            codeTagProps={{ "data-language": language }}
+                        >
                             {children}
                         </SyntaxHighlighter>
                     )
@@ -53,8 +58,12 @@ function htmlToMarkdown(element){
                 return `~~${children}~~`
             case "CODE":
                 return node.parentElement?.tagName === "PRE" ? children : `\`${children}\``
-            case "PRE":
-                return `\`\`\`\n${node.textContent?.replace(/\n+$/, "") || ""}\n\`\`\`\n\n`
+            case "PRE": {
+                const code = node.querySelector("code")
+                const language = code?.getAttribute("data-language")
+                    || /language-(\w+)/.exec(`${node.className} ${code?.className || ""}`)?.[1]
+                return `\`\`\`${language || ""}\n${node.textContent?.replace(/\n+$/, "") || ""}\n\`\`\`\n\n`
+            }
             case "UL":
             case "OL":
                 return `${Array.from(node.children).map((item, index) =>
@@ -145,17 +154,19 @@ function MessageList(props){
                 ) : renderMessageContent(message)}
                 
                 </div>
-                <div className="self-end gap-1 p-1 bg-transparent border-none flex invisible group-hover:visible items-center -translate-y-1">
+                <div className="self-end gap-0 p-1 bg-transparent border-none flex invisible group-hover:visible items-center -translate-y-1">
                 
                 <button
                     aria-label={copyFeedback?.index === index
                         ? copyFeedback.status === "copied" ? "Message copied" : "Copy failed"
                         : "Copy message"}
-                    className="flex h-8 w-8 flex-none cursor-pointer items-center justify-center border-0 bg-transparent p-0"
-                    onClick={async () => {
+                    className="flex h-6 w-6 flex-none cursor-pointer items-center justify-center border-0 bg-transparent p-0"
+                    onClick={async (event) => {
                         let status = "copied"
                         try {
-                            await navigator.clipboard.writeText(message.content)
+                            const card = event.currentTarget.closest(".group")?.querySelector(".chat-message")
+                            if (!card) throw new Error("Cannot find message content to copy")
+                            await navigator.clipboard.writeText(card.innerText)
                         } catch (error) {
                             console.error("Failed to copy message to clipboard", error)
                             status = "failed"
@@ -177,7 +188,7 @@ function MessageList(props){
 
                 <button
                     aria-label={edit === index ? "Preview and save message" : "Edit message"}
-                    className="flex h-8 w-8 flex-none cursor-pointer items-center justify-center border-0 bg-transparent p-0"
+                    className="flex h-6 w-6 flex-none cursor-pointer items-center justify-center border-0 bg-transparent p-0"
                     onClick={(event) => {
                         if(edit === index){
                             const content = editorRef.current
@@ -189,6 +200,7 @@ function MessageList(props){
                             setEdit(null)
                             return
                         }
+                        
                         const card = event.currentTarget.closest(".group")?.querySelector(".chat-message")
                         const bounds = card?.getBoundingClientRect()
                         setEditDimensions(bounds ? { width: bounds.width, height: bounds.height } : null)

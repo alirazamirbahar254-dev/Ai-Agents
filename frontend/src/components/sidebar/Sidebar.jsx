@@ -1,10 +1,22 @@
 import "./Sidebar.css";
 import {Bot, Search, PanelLeft, MessageSquarePlus, CalendarClock, History} from 'lucide-react';
 
-function Sidebar(){
+
+function Sidebar({isOpen, onToggle}){
     return(
         <>
-    <div className="sidebar">
+    <div className={`sidebar-collapse-control ${isOpen ? "is-open" : "is-closed"}`}>
+      <button
+        id="toggle_sibar"
+        aria-label={isOpen ? "Collapse sidebar" : "Open sidebar"}
+        aria-expanded={isOpen}
+        onClick={onToggle}
+      >
+        <PanelLeft size={18}/>
+      </button>
+    </div>
+    
+    <div className={ `sidebar ${isOpen ? "flex" :"hidden"}`}>
     <div className="header">
     <div className="sidebar_brand">
       <span className="sidebar_brand-icon" aria-hidden="true">
@@ -12,10 +24,9 @@ function Sidebar(){
       </span>
       <span className="sidebar_brand-name">AI Agent</span>
     </div>
-    <div className="sidebar_btn">
+    <div className="sidebar_btn ">
     <button id="search"><Search size={18}/></button>
-    <button id="toggle_sibar"><PanelLeft size={18}/></button>
- 
+    
     </div>
    </div>
    <div>

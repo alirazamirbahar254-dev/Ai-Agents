@@ -4,7 +4,9 @@ import {useEffect, useRef, useState} from 'react'
 import Sidebar from "./components/sidebar/Sidebar.jsx";
 import MessageList from "./components/MessageList.jsx";
 import { ArrowUp, Plus, Mic } from 'lucide-react';
+
 function App (){
+    const [sidebarOpen, setSidebarOpen] = useState(false)
     const [message, setMessage] = useState("")
     const [messages, setMessages] = useState([])
     const textareaRef = useRef(null)
@@ -108,11 +110,14 @@ function App (){
     return (
         <>
         <div
-            className="app"
+            className={`app ${sidebarOpen ? "sidebar-open" : "sidebar-collapsed"}`}
             onPointerMove={messages.length === 0 ? handlePointerMove : undefined}
             onPointerLeave={messages.length === 0 ? handlePointerLeave : undefined}
         >
-            <Sidebar />
+            <Sidebar
+                isOpen={sidebarOpen}
+                onToggle={() => setSidebarOpen((open) => !open)}
+            />
         <main className="min-w-0 flex h-[calc(100vh-40px)] min-h-0 flex-1 flex-col w-full items-center">
         <div className="flex min-h-0 w-full flex-1 flex-col items-center overflow-y-auto">
         {messages.length === 0 ? (
@@ -130,7 +135,7 @@ function App (){
                         </div>
                     </div>
                 </div>
-                <h2 className="max-w-3xl text-2xl font-bold leading-tight tracking-tight text-indigo-600 sm:text-3xl md:text-4xl lg:text-5xl">
+                <h2 className="welcome-content-width text-2xl font-bold leading-tight tracking-tight text-indigo-600 sm:text-3xl md:text-4xl lg:text-5xl">
                     Hello! How can I help you today?
                 </h2>
             </div>
@@ -142,7 +147,7 @@ function App (){
         )}
 
         </div>
-        <div className="chat mt-auto"> 
+        <div className="chat welcome-content-width mt-auto"> 
             <button id="plus-icon"><Plus size={23} /></button>
             <textarea
                 ref={textareaRef}
