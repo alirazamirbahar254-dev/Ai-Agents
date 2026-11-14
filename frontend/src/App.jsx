@@ -3,7 +3,7 @@ import {API_BASE_URL} from './config.js'
 import {useRef, useState} from 'react'
 import Sidebar from "./components/sidebar/Sidebar.jsx";
 import MessageList from "./components/MessageList.jsx";
-import { ArrowUp, Plus, Search } from 'lucide-react';
+import { ArrowUp, Plus, Mic } from 'lucide-react';
 function App (){
     const [message, setMessage] = useState("")
     const [messages, setMessages] = useState([])
@@ -20,6 +20,7 @@ function App (){
             { role: "user", content: outgoingMessage },
             { role: "assistant", content: "", pending: true, requestId }
         ])
+
         setMessage("")
         if (textareaRef.current) {
             textareaRef.current.style.height = '40px'
@@ -86,6 +87,7 @@ function App (){
                 <inputchat />
             </div>
         )}
+
         </div>
         <div className="chat mt-auto"> 
             <button id="plus-icon"><Plus size={23} /></button>
@@ -100,7 +102,7 @@ function App (){
                         sendMessage()
                     }
                 }}
-                
+
                 onChange={(event) => {
                     setMessage(event.target.value)
                     const textarea = event.currentTarget;
@@ -109,6 +111,8 @@ function App (){
                     textarea.style.overflowY = textarea.scrollHeight > 200 ? 'auto' : 'hidden';
                 }}
             />
+            
+            <button id="mic"><Mic size={23}/></button>
             <button id="arrow-icon" onClick={sendMessage}><ArrowUp size={23} /></button>
             
         </div>

@@ -12,14 +12,42 @@
 }
 
 .header{
-display:flex;
-flex-direction:row;
-justify-content: space-between;
-font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-family: 'Poppins', sans-serif;
 }
 
-.header p{
-    font-size: 25px;
+.sidebar_brand{
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar_brand-icon{
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 12px;
+  background: linear-gradient(145deg, var(--accent), var(--accent-hover));
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+  color: #fff;
+}
+
+.sidebar_brand-name{
+  color: var(--text-primary);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 #search, #toggle_sibar{
@@ -48,7 +76,7 @@ align-items: center;
     cursor:pointer;
 }
 
-#new_chat{
+#new_chat, #scheduled, #History{
   width: 100%;
   height: 40px;
   flex: none;
@@ -64,7 +92,20 @@ align-items: center;
   transition: background-color var(--ease);
 }
 
+#new_chat svg,
+#scheduled svg,
+#History svg{
+  transform: translateX(-12px);
+}
+
 #new_chat:hover{
   background: var(--accent-soft);
 }
 
+#scheduled:hover{
+  background: var(--accent-soft);
+}
+
+#History:hover{
+  background: var(--accent-soft);
+}

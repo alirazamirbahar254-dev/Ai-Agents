@@ -289,11 +289,16 @@ button{
     cursor:pointer;
 }
 
-#plus-icon{
+#plus-icon, #mic{
 background: transparent;
 border: none;
 color: var(--text-primary);
 transition: all 0.2s ease;
+}
+
+#mic:hover{
+  background: blue;
+  color: #fff;
 }
 
 #plus-icon:hover{

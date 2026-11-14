@@ -26,7 +26,7 @@ calculator_tool = {
         "required":[
             "a", "b", "options"
         ]
-            
+
         }
     }
     }
@@ -34,17 +34,17 @@ calculator_tool = {
 def calculator(a: int | float, b: int | float, options: str)-> int | float:
     if options in ("/", "//", "%") and b == 0:
         return "Cannot divide by zero"
- 
+
     """Use this tool to calculate mathematical expressions. 
     Always use it for arithmetic calculations instead of calculating mentally.
     a, b, can be use integer and float values, and options is for string """
-    
+
     if options == "-":
         return (a - b)
-    
+ 
     elif options == "+":
         return (a + b)
-    
+
     elif options == "*":
         return (a * b)
     
@@ -56,10 +56,9 @@ def calculator(a: int | float, b: int | float, options: str)-> int | float:
 
     elif options == "%":
             return (a % b)
-    
+
     elif options == "**":
             return (a ** b)
-    
     else:
           return "Invalid Oprater"
 
