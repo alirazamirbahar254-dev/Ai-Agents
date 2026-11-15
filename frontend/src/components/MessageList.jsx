@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from "react"
 import ReactMarkdown from "react-markdown"
 import { Check, CircleX, Copy, Eye, Pencil } from 'lucide-react'
@@ -115,6 +116,7 @@ function MessageList(props){
                 
             }`}
             >
+
                 <div className="flex flex-col group">
                 <div style={edit === index && editDimensions ? {
                     width: `${editDimensions.width}px`,
@@ -122,6 +124,7 @@ function MessageList(props){
                 } : undefined} className={`chat-message box-border min-w-0 max-w-full break-words [overflow-wrap:anywhere] rounded-2xl border p-4 leading-relaxed shadow-sm ${
                         message.role === "user" ? "rounded-br-md" : "rounded-bl-md"
                     } ${
+                        
                         edit === index
                             ? "chat-message--editing"
                             : message.role === "user"

@@ -78,15 +78,15 @@ justify-content: space-between;
 min-height: 100vh;
 height: 100vh;
 overflow: hidden;
-padding: 20px 20px 20px calc(var(--sidebar-width) + 20px);
+padding: 20px;
 width:100%;
 font-family: 'Poppins', sans-serif;
 background: var(--surface-2);
 transition: padding-left 250ms ease;
 }
 
-.app.sidebar-collapsed {
-  padding-left: 20px;
+.app.sidebar-open {
+  padding-left: calc(var(--sidebar-width) + 20px);
 }
 
 /* Shares a consistent width between the welcome heading and chat input. */
@@ -176,6 +176,10 @@ transition: padding-left 250ms ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .app {
+    transition: none;
+  }
+
   .app {
     transition: none;
   }

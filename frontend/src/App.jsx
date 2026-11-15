@@ -1,18 +1,22 @@
+
 import './App.css';
 import {API_BASE_URL} from './config.js' 
 import {useEffect, useRef, useState} from 'react'
 import Sidebar from "./components/sidebar/Sidebar.jsx";
 import MessageList from "./components/MessageList.jsx";
-import { ArrowUp, Plus, Mic } from 'lucide-react';
+import { ArrowUp, Plus, Mic, X } from 'lucide-react';
 
 function App (){
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [message, setMessage] = useState("")
     const [messages, setMessages] = useState([])
+    const [selectedFile, setSelectedFile] = useState(null)
+    const fileInputRef = useRef(null)
     const textareaRef = useRef(null)
     const requestIdRef = useRef(0)
     const mascotRef = useRef(null)
     const pointerPositionRef = useRef(null)
+    
 
     const handlePointerMove = (event) => {
         pointerPositionRef.current = { x: event.clientX, y: event.clientY }
@@ -110,10 +114,11 @@ function App (){
     return (
         <>
         <div
-            className={`app ${sidebarOpen ? "sidebar-open" : "sidebar-collapsed"}`}
+            className={`app ${sidebarOpen ? "sidebar-open" : ""}`}
             onPointerMove={messages.length === 0 ? handlePointerMove : undefined}
             onPointerLeave={messages.length === 0 ? handlePointerLeave : undefined}
         >
+
             <Sidebar
                 isOpen={sidebarOpen}
                 onToggle={() => setSidebarOpen((open) => !open)}
@@ -121,13 +126,14 @@ function App (){
         <main className="min-w-0 flex h-[calc(100vh-40px)] min-h-0 flex-1 flex-col w-full items-center">
         <div className="flex min-h-0 w-full flex-1 flex-col items-center overflow-y-auto">
         {messages.length === 0 ? (
-            <div className="flex w-full flex-1 flex-col items-center justify-center gap-5 px-6 text-center">
-                <div className="welcome-mascot" ref={mascotRef} aria-hidden="true">
+            <div className="flex w-full flex-1 flex-col items-center justify-center gap-4 px-6 pt-70 text-center">
+                <div className="welcome-mascot select-none" ref={mascotRef} aria-hidden="true">
                     <div className="welcome-face">
                         <div className="welcome-eyes">
                             <span className="welcome-eye"><span className="welcome-pupil" /></span>
                             <span className="welcome-eye"><span className="welcome-pupil" /></span>
                         </div>
+
                         <div className="welcome-expression">
                             <span className="welcome-cheek" />
                             <span className="welcome-smile" />
@@ -135,7 +141,7 @@ function App (){
                         </div>
                     </div>
                 </div>
-                <h2 className="welcome-content-width text-2xl font-bold leading-tight tracking-tight text-indigo-600 sm:text-3xl md:text-4xl lg:text-5xl">
+                <h2 className="welcome-content-width select-none text-2xl font-bold leading-tight tracking-tight text-indigo-600 sm:text-3xl md:text-4xl lg:text-5xl">
                     Hello! How can I help you today?
                 </h2>
             </div>
@@ -147,8 +153,37 @@ function App (){
         )}
 
         </div>
-        <div className="chat welcome-content-width mt-auto"> 
-            <button id="plus-icon"><Plus size={23} /></button>
+        <div className="flex flex-col self-stretch flex-1 min-w-0 justify-end">
+        {selectedFile && (
+            <div className="mb-2 flex w-fit max-w-full items-center gap-2 self-center rounded-lg border border-slate-200 bg-white p-2 text-sm text-slate-700 shadow-sm">
+                {selectedFile.type.startsWith("image/") ? (
+                    <img
+                        className="h-12 w-12 shrink-0 rounded object-cover"
+                        src={URL.createObjectURL(selectedFile)}
+                        alt={selectedFile.name}
+                    />
+                ) : null}
+                <span className="min-w-0 truncate">{selectedFile.name}</span>
+                <button className="text-red-500 cursor-pointer" onClick={() => {
+                    setSelectedFile(null)
+                }}><X size={10}/></button>
+            </div>
+        )}
+
+        <div className="chat welcome-content-width self-center"> 
+            <button id="plus-icon" onClick={() => {
+            fileInputRef.current?.click()
+
+            }}><Plus size={23} /></button>
+            <input
+            type="file"
+            ref={fileInputRef}
+            hidden
+            onChange={(e) => {
+                setSelectedFile(e.target.files[0])
+            }}
+            ></input>
+
             <textarea
                 ref={textareaRef}
                 placeholder="Ask me anything..."
@@ -173,6 +208,7 @@ function App (){
             <button id="mic"><Mic size={23}/></button>
             <button id="arrow-icon" onClick={sendMessage}><ArrowUp size={23} /></button>
             
+        </div>
         </div>
         </main> 
         </div>

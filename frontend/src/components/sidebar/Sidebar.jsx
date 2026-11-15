@@ -1,7 +1,6 @@
 import "./Sidebar.css";
 import {Bot, Search, PanelLeft, MessageSquarePlus, CalendarClock, History} from 'lucide-react';
 
-
 function Sidebar({isOpen, onToggle}){
     return(
         <>
@@ -24,6 +23,7 @@ function Sidebar({isOpen, onToggle}){
       </span>
       <span className="sidebar_brand-name">AI Agent</span>
     </div>
+
     <div className="sidebar_btn ">
     <button id="search"><Search size={18}/></button>
     
